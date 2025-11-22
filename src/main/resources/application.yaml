@@ -5,4 +5,15 @@ spring.datasource:
   url: jdbc:postgresql://localhost:5432/fullstackdb
   username: admin
   password: secret
-
+---
+spring.security.oauth2.client:
+  registration:
+    keycloak:
+      client-id: full-stack-app
+      client-secret: secret
+      authorization-grant-type: authorization_code
+      redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+      scope: openid, profile, email
+  provider:
+    keycloak:
+      issuer-uri: http://localhost:9000/realms/full-stack
