@@ -43,18 +43,19 @@ public class SecurityConfiguration
                         .defaultSuccessUrl("/", true)
                         .userInfoEndpoint(userInfo -> userInfo.oidcUserService(oidcUserService())))
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .logoutSuccessHandler(oidcLogoutSuccessHandler()))
+                        .logoutRequestMatcher(request ->
+                                request.getMethod().equals("GET") &&
+                                request.getServletPath().equals("/logout"))
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
+                )
                 .oidcLogout(logout -> logout.backChannel(Customizer.withDefaults()));
 
         return http.build();
     }
 
-    /**
-     * Custom OidcUserService: Liest Rollen aus Access Token (realm_access.roles, resource_access.<clientId>.roles)
-     * und ergänzt sie als ROLE_ Authorities.
-     */
+
     @Bean
     OidcUserService oidcUserService()
     {
