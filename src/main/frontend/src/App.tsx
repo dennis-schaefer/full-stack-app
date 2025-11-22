@@ -4,11 +4,17 @@ import {
 } from "react-router-dom";
 import DashboardView from "./views/dashboard-view.tsx";
 import PublicView from "./views/public-view.tsx";
+import { AuthProvider } from "./auth/AuthProvider.tsx";
+import { ProtectedRoute } from "./auth/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <DashboardView/>,
+        element: (
+            <ProtectedRoute>
+                <DashboardView/>
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/public",
@@ -18,6 +24,8 @@ const router = createBrowserRouter([
 
 export default function App() {
     return (
+        <AuthProvider>
             <RouterProvider router={router}/>
+        </AuthProvider>
     );
 }
