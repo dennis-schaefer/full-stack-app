@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: spring-session.sql
+      relativeToChangelogFile: true
