@@ -24,6 +24,8 @@ export default function DashboardView() {
                 </div>
             )}
             <div>Message: {message}</div>
+
+            <button onClick={() => window.location.href = "/logout"}>Abmelden</button>
         </>
 
     );
