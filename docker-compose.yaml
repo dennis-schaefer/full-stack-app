@@ -3,8 +3,22 @@ services:
     image: 'postgres:18.0'
     container_name: full-stack-postgres
     environment:
-      - 'POSTGRES_DB=fullstackdb'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=admin'
+      POSTGRES_DB: fullstackdb
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: admin
     ports:
       - "5432:5432"
+
+  keycloak:
+    image: 'keycloak/keycloak:26.4.5'
+    container_name: full-stack-keycloak
+    command:
+      - 'start-dev'
+      - '--import-realm'
+    ports:
+      - "9000:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: secret
+    volumes:
+      - ./.dev/keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
