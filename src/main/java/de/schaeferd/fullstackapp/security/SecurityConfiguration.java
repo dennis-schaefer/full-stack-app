@@ -15,13 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration
 {
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
+    SecurityFilterChain securityFilterChain(HttpSecurity http)
     {
         http
-            .oauth2Login(login -> login
-                    .loginPage("/oauth2/authorization/keycloak")
-                    .defaultSuccessUrl("/")
-            );
+                .authorizeHttpRequests(request -> request.anyRequest().authenticated())
+                .oauth2Login(login -> login
+                        .loginPage("/oauth2/authorization/keycloak")
+                        .defaultSuccessUrl("/")
+                );
 
         return http.build();
     }
