@@ -18,8 +18,8 @@ export default function DashboardView() {
             <div>Dashboard</div>
             {user && (
                 <div>
-                    <h2>Willkommen, {user.fullName}!</h2>
-                    <p>Benutzername: {user.username}</p>
+                    <h2>Welcome, {user.fullName}!</h2>
+                    <p>Username: {user.username}</p>
                     <p>E-Mail: {user.email}</p>
                     <p>Roles: {user.roles.flatMap(role => role + ", ")}</p>
                 </div>
