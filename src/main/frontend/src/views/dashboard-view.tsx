@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import { useAuth } from "../auth/AuthContext.tsx";
+import {Button} from "@/components/ui/button.tsx";
 
 export default function DashboardView() {
     const [message, setMessage] = useState<string>("");
@@ -25,7 +26,9 @@ export default function DashboardView() {
             )}
             <div>Message: {message}</div>
 
-            <button onClick={() => window.location.href = "/logout"}>Abmelden</button>
+            <Button variant={"outline"} onClick={() => window.location.href = "/logout"}>
+                Sign Out
+            </Button>
         </>
 
     );

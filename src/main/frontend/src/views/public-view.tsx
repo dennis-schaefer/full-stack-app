@@ -1,4 +1,6 @@
 import { useAuth } from "../auth/AuthContext.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import {NavLink} from "react-router-dom";
 
 export default function PublicView() {
     const { user, isAuthenticated, login } = useAuth();
@@ -6,17 +8,19 @@ export default function PublicView() {
     return (
         <div>
             <h1>Public View</h1>
-            <p>Diese Seite ist öffentlich zugänglich.</p>
+            <p>This is a publicly available view</p>
 
             {isAuthenticated ? (
                 <div>
-                    <p>Sie sind angemeldet als: <strong>{user?.fullName}</strong></p>
-                    <a href="/">Zum Dashboard</a>
+                    <p>You are authenticated as: <strong>{user?.fullName}</strong></p>
+                    <NavLink to={"/"}>
+                        <Button variant={"link"}>Go to dashboard</Button>
+                    </NavLink>
                 </div>
             ) : (
                 <div>
-                    <p>Sie sind nicht angemeldet.</p>
-                    <button onClick={login}>Anmelden</button>
+                    <p>You are currently not logged in</p>
+                    <Button onClick={login}>Sign in here</Button>
                 </div>
             )}
         </div>
