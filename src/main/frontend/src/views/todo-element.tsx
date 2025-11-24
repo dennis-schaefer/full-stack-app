@@ -1,5 +1,5 @@
-import type Todo from "@/commons/Todo.ts";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
+import type {Todo} from "@/api/model";
 
 interface TodoElementProps {
     todo: Todo;

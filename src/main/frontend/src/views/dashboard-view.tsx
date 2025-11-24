@@ -1,19 +1,12 @@
-import {useEffect, useState} from "react";
 import { useAuth } from "../auth/AuthContext.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import type Todo from "@/commons/Todo.ts";
 import TodoElement from "@/views/todo-element.tsx";
+import {useGetTodos} from "@/api/endpoints/todo-controller/todo-controller.ts";
 
 export default function DashboardView() {
-    const [todos, setTodos] = useState<Todo[]>([]);
+    const { data: todos, isLoading } = useGetTodos();
     const { user } = useAuth();
 
-    useEffect(() => {
-        fetch("/api/v1/todos")
-            .then(res => res.json())
-            .then((data: Todo[]) => setTodos(data))
-            .catch(err => console.error("Error fetching todos: " + err));
-        }, [])
 
     return (
         <>
@@ -35,7 +28,9 @@ export default function DashboardView() {
             <div className={"p-4 gap-2 flex flex-col"}>
                 <div className={"text-xl"}>ToDo's</div>
 
-                { todos.map(todo => (
+                { isLoading && <div>Loading...</div> }
+
+                { todos && todos.map(todo => (
                     <TodoElement todo={todo} key={todo.id} />
                 ))}
             </div>

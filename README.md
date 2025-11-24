@@ -10,9 +10,16 @@
   cd frontend
   npm install react-router-dom
   ```
+###  Axios
 ```
 npm install -g @openapitools/openapi-generator-cli -D
 npx openapi-generator-cli generate  -i http://localhost:8080/v3/api-docs -g typescript-axios -o ./src/main/frontend/commons --additional-properties=useSingleRequestParameter=true
+```
+
+### Orval with Tanstack Query
+```
+npm install axios @tanstack/react-query
+npm install orval -D
 ```
 
 ## Notes
