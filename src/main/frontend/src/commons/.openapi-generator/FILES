@@ -1,0 +1,14 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+docs/HelloWorldControllerApi.md
+docs/Todo.md
+docs/TodoControllerApi.md
+docs/UserInfo.md
+docs/UserInfoControllerApi.md
+git_push.sh
+index.ts

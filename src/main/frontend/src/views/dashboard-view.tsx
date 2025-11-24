@@ -1,19 +1,25 @@
 import {useEffect, useState} from "react";
 import { useAuth } from "../auth/AuthContext.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import type Todo from "@/commons/Todo.ts";
 import TodoElement from "@/views/todo-element.tsx";
+import {Configuration, type Todo, TodoControllerApi} from "@/commons";
+
+const configuration = new Configuration({
+    basePath: ''
+});
+const apiInstance = new TodoControllerApi(configuration);
 
 export default function DashboardView() {
     const [todos, setTodos] = useState<Todo[]>([]);
     const { user } = useAuth();
 
     useEffect(() => {
-        fetch("/api/v1/todos")
-            .then(res => res.json())
-            .then((data: Todo[]) => setTodos(data))
-            .catch(err => console.error("Error fetching todos: " + err));
-        }, [])
+        const fetchTodos = async () => {
+            const { data } = await apiInstance.getTodos();
+            return data;
+        }
+        fetchTodos().then(data => setTodos(data));
+    }, [])
 
     return (
         <>
