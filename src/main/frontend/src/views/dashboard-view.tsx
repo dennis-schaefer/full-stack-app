@@ -1,17 +1,28 @@
 import {useEffect, useState} from "react";
 import { useAuth } from "../auth/AuthContext.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import type Todo from "@/commons/Todo.ts";
+import TodoElement from "@/views/todo-element.tsx";
+import {Configuration, TodoControllerApi} from "@/commons";
+
+const configuration = new Configuration();
+const apiInstance = new TodoControllerApi(configuration);
 
 export default function DashboardView() {
-    const [message, setMessage] = useState<string>("");
+    const [todos, setTodos] = useState<Todo[]>([]);
     const { user } = useAuth();
 
     useEffect(() => {
-        fetch("/api/hello")
-            .then(res => res.text())
-            .then(body => setMessage(body))
-            .catch(err => setMessage("Error fetching message: " + err.message));
+        fetch("/api/v1/todos")
+            .then(res => res.json())
+            .then((data: Todo[]) => setTodos(data))
+            .catch(err => console.error("Error fetching todos: " + err));
+
+        apiInstance.getTodos().then;
     }, [])
+
+
+
 
     return (
         <>
@@ -24,11 +35,19 @@ export default function DashboardView() {
                     <p>Roles: {user.roles.flatMap(role => role + ", ")}</p>
                 </div>
             )}
-            <div>Message: {message}</div>
+
 
             <Button variant={"outline"} onClick={() => window.location.href = "/logout"}>
                 Sign Out
             </Button>
+
+            <div className={"p-4 gap-2 flex flex-col"}>
+                <div className={"text-xl"}>ToDo's</div>
+
+                { todos.map(todo => (
+                    <TodoElement todo={todo} key={todo.id} />
+                ))}
+            </div>
         </>
 
     );

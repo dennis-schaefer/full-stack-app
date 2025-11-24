@@ -36,7 +36,7 @@ public class SecurityConfiguration
     {
         http
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/userinfo").permitAll())
-                .authorizeHttpRequests(request -> request.requestMatchers("/public", "/public/**").permitAll())
+                .authorizeHttpRequests(request -> request.requestMatchers("/public", "/public/**", "/v3/api-docs").permitAll())
                 .authorizeHttpRequests(request -> request.requestMatchers("/", "/assets/**").permitAll())
                 .authorizeHttpRequests(request -> request.anyRequest().authenticated())
                 .oauth2Login(login -> login

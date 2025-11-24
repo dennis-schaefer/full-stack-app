@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: dennis-schaefer
+      changes:
+        - createTable:
+            tableName: todo
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_by
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: completed_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: true
+        - createIndex:
+            tableName: todo
+            indexName: idx_todo_created_by
+            columns:
+              - column:
+                  name: created_by
+        - createIndex:
+            tableName: todo
+            indexName: idx_todo_completed_at
+            columns:
+              - column:
+                  name: completed_at
