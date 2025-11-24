@@ -3,10 +3,6 @@ import { useAuth } from "../auth/AuthContext.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import type Todo from "@/commons/Todo.ts";
 import TodoElement from "@/views/todo-element.tsx";
-import {Configuration, TodoControllerApi} from "@/commons";
-
-const configuration = new Configuration();
-const apiInstance = new TodoControllerApi(configuration);
 
 export default function DashboardView() {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -17,12 +13,7 @@ export default function DashboardView() {
             .then(res => res.json())
             .then((data: Todo[]) => setTodos(data))
             .catch(err => console.error("Error fetching todos: " + err));
-
-        apiInstance.getTodos().then;
-    }, [])
-
-
-
+        }, [])
 
     return (
         <>
